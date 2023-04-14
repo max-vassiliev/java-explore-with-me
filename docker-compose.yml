@@ -1,15 +1,61 @@
 version: '3.1'
 services:
   stats-server:
+    build: stats-svc/stats-server
+    image: ewm-stats-server
+    container_name: ewm-stats-server
     ports:
       - "9090:9090"
+    depends_on:
+      - stats-db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/ewm-stats-test
+      - SPRING_DATASOURCE_USERNAME=ewm-adm
+      - SPRING_DATASOURCE_PASSWORD=ewm-passkey
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   stats-db:
     image: postgres:14-alpine
+    container_name: ewm_stats-db
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=ewm-stats-test
+      - POSTGRES_USER=ewm-adm
+      - POSTGRES_PASSWORD=ewm-passkey
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   ewm-service:
+    build: main-svc
+    image: ewm-service
+    container_name: ewm-service
     ports:
       - "8080:8080"
+    depends_on:
+      - stats-server
+      - ewm-db
+    environment:
+      - STATS-SERVER_URL=http://ewm-stats-server:9090
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm-db:5432/ewm-service-test
+      - SPRING_DATASOURCE_USERNAME=ewm-adm
+      - SPRING_DATASOURCE_PASSWORD=ewm-passkey
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
 
   ewm-db:
     image: postgres:14-alpine
+    container_name: ewm_service-db
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=ewm-service-test
+      - POSTGRES_USER=ewm-adm
+      - POSTGRES_PASSWORD=ewm-passkey
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
