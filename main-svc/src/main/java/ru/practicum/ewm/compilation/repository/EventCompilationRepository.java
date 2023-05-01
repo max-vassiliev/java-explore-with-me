@@ -5,9 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
@@ -18,14 +17,10 @@ public class EventCompilationRepository {
     public List<Long> getEventIdsByCompId(Long compId) {
         String sql = "SELECT event_id FROM events_compilations WHERE compilation_id = ?";
 
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, compId);
-        List<Long> eventIds = new ArrayList<>();
-
-        for (Map<String, Object> row : rows) {
-            Long eventId = (Long) row.get("event_id");
-            eventIds.add(eventId);
-        }
-        return eventIds;
+        return jdbcTemplate.queryForList(sql, compId)
+                .stream()
+                .map(row -> (Long) row.get("event_id"))
+                .collect(Collectors.toList());
     }
 
     public void update(List<Long> eventIds, Long compId) {

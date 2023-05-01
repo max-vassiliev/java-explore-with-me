@@ -93,15 +93,10 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
     // -------------------------
 
     private Compilation updateFields(Compilation compilation, UpdateCompilationRequest request) {
-        if (request.getTitle() != null) {
-            compilation.setTitle(request.getTitle());
-        }
-        if (request.getPinned() != null) {
-            compilation.setPinned(request.getPinned());
-        }
         if (request.getEvents() != null) {
             compilation.setEvents(getEvents(request));
         }
+        compMapperLite.updateFields(request, compilation);
         return compilation;
     }
 

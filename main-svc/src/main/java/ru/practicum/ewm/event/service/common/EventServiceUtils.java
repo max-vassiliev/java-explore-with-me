@@ -1,8 +1,11 @@
 package ru.practicum.ewm.event.service.common;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ru.practicum.ewm.event.dto.update.UpdateEventRequest;
+import ru.practicum.ewm.event.mapper.EventMapperLite;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.exception.model.ValidationException;
 import ru.practicum.ewm.request.model.Request;
@@ -18,12 +21,14 @@ import java.util.stream.Stream;
 import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
 
 @Component
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EventServiceUtils {
 
     private static final int MINIMUM_HOURS_BEFORE_EVENT_ADMIN = 1;
 
     private static final int MINIMUM_HOURS_BEFORE_EVENT_USER = 2;
 
+    private final EventMapperLite eventMapper;
 
     public void validateDateBeforeUpdate(Event event) {
         LocalDateTime now = LocalDateTime.now();
@@ -33,28 +38,11 @@ public class EventServiceUtils {
     }
 
     public void updateEventFields(Event event, UpdateEventRequest dto, boolean isAdmin) {
-        if (dto.getTitle() != null) {
-            event.setTitle(dto.getTitle());
-        }
-        if (dto.getAnnotation() != null) {
-            event.setAnnotation(dto.getAnnotation());
-        }
-        if (dto.getPaid() != null) {
-            event.setPaid(dto.getPaid());
-        }
         if (dto.getEventDate() != null) {
             LocalDateTime eventDate = getEventDate(dto.getEventDate(), LocalDateTime.now(), isAdmin);
             event.setEventDate(eventDate);
         }
-        if (dto.getDescription() != null) {
-            event.setDescription(dto.getDescription());
-        }
-        if (dto.getParticipantLimit() != null) {
-            event.setParticipantLimit(dto.getParticipantLimit());
-        }
-        if (dto.getRequestModeration() != null) {
-            event.setRequestModeration(dto.getRequestModeration());
-        }
+        eventMapper.updateFields(dto, event);
     }
 
     private LocalDateTime getEventDate(String date, LocalDateTime now, boolean isAdmin) {
