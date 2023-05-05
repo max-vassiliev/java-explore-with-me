@@ -32,6 +32,7 @@ public class AdminCategoryController {
     @PostMapping
     public ResponseEntity<CategoryDto> create(@Valid @RequestBody NewCategoryDto categoryDto) {
         log.info("POST /admin/categories | Request Body: {}", categoryDto);
+        System.out.println("test");
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(categoryService.create(categoryDto));
     }
