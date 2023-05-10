@@ -17,4 +17,6 @@ public class UserShortDto {
 
     private String name;
 
+    private Float eventsRating;
+
 }

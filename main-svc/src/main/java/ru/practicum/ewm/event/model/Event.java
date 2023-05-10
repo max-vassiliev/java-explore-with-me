@@ -78,6 +78,15 @@ public class Event {
     @Column(name = "confirmed_requests", nullable = false)
     private Long confirmedRequests = 0L;
 
+    @Column(name = "likes")
+    private Long likes;
+
+    @Column(name = "dislikes")
+    private Long dislikes;
+
+    @Column(name = "rating")
+    private Float rating;
+
     @Column(name = "views", nullable = false)
     private Long views;
 

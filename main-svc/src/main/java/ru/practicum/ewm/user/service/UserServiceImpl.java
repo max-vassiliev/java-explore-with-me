@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private List<User> getUsers(List<Long> ids, Pageable pageable) {
-        if (!ids.isEmpty()) {
+        if (ids != null) {
             return userRepository.findAllByIdIn(ids, pageable);
         } else {
             return userRepository.findAll(pageable).toList();

@@ -7,6 +7,8 @@ import ru.practicum.ewm.event.model.EventState;
 import ru.practicum.ewm.event.model.QEvent;
 import ru.practicum.ewm.event.model.params.EventAdminSearchParams;
 import ru.practicum.ewm.event.model.params.EventPublicSearchParams;
+import ru.practicum.ewm.event.model.params.EventSearchSort;
+import ru.practicum.ewm.user.model.QUser;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -41,7 +43,7 @@ public class CustomEventRepository {
             query.where(event.eventDate.before(params.getRangeEnd()));
         }
 
-        return query.offset(params.getPage().getOffset()).fetch();
+        return query.offset(params.getPage().getOffset()).limit(params.getSize()).fetch();
     }
 
     public List<Event> getAllPublic(EventPublicSearchParams params) {
@@ -71,7 +73,21 @@ public class CustomEventRepository {
         if (params.isOnlyAvailable()) {
             query.where(event.confirmedRequests.lt(event.participantLimit));
         }
+        if (EventSearchSort.EVENT_DATE.equals(params.getSort())) {
+            query.orderBy(event.eventDate.asc());
+        }
+        if (EventSearchSort.VIEWS.equals(params.getSort())) {
+            query.orderBy(event.views.desc());
+        }
+        if (EventSearchSort.EVENT_RATING.equals(params.getSort())) {
+            query.orderBy(event.rating.desc().nullsLast());
+        }
+        if (EventSearchSort.INITIATOR_RATING.equals(params.getSort())) {
+            QUser initiator = QUser.user;
+            query.leftJoin(event.initiator, initiator)
+                    .orderBy(initiator.eventsRating.desc().nullsLast());
+        }
 
-        return query.offset(params.getPage().getOffset()).fetch();
+        return query.offset(params.getPage().getOffset()).limit(params.getSize()).fetch();
     }
 }

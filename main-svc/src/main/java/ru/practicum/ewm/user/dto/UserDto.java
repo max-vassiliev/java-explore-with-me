@@ -13,10 +13,16 @@ import lombok.ToString;
 @ToString
 public class UserDto {
 
-    private String email;
-
     private Long id;
 
     private String name;
+
+    private String email;
+
+    private Float eventsRating;
+
+    private Long eventsLikes;
+
+    private Long eventsDislikes;
 
 }

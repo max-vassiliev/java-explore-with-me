@@ -32,4 +32,13 @@ public class User {
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
+    @Column(name = "events_rating")
+    private Float eventsRating;
+
+    @Column(name = "events_likes")
+    private Long eventsLikes;
+
+    @Column(name = "events_dislikes")
+    private Long eventsDislikes;
+
 }

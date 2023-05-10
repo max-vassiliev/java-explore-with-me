@@ -24,14 +24,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
+import static ru.practicum.ewm.common.StatsConstants.EARLIEST_DATE;
 
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class PublicEventServiceImpl implements PublicEventService {
-
-    public static final LocalDateTime VIEW_STATS_DEFAULT_START = LocalDateTime
-            .of(2010, 1, 1, 0, 0, 0);
 
     private final EventRepository eventRepository;
 
@@ -86,7 +84,7 @@ public class PublicEventServiceImpl implements PublicEventService {
 
     private void countViews(HttpServletRequest request, Event event) {
         List<String> uri = Collections.singletonList(request.getRequestURI());
-        Long views = (long) statsService.getViewStats(VIEW_STATS_DEFAULT_START,
+        Long views = (long) statsService.getViewStats(EARLIEST_DATE,
                 LocalDateTime.now(), uri, null).size();
         event.setViews(views);
         eventRepository.flush();

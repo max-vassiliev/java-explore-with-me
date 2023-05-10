@@ -5,7 +5,9 @@ import ru.practicum.ewm.exception.model.EventSearchSortException;
 public enum EventSearchSort {
 
     EVENT_DATE,
-    VIEWS;
+    VIEWS,
+    EVENT_RATING,
+    INITIATOR_RATING;
 
     public static EventSearchSort fromString(String string) {
         try {

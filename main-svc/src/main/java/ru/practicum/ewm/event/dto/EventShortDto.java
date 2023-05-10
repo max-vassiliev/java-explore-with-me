@@ -33,4 +33,10 @@ public class EventShortDto {
 
     private Long confirmedRequests;
 
+    private Long likes;
+
+    private Long dislikes;
+
+    private Float rating;
+
 }
