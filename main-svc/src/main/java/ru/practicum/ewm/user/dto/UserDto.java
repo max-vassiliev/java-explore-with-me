@@ -21,8 +21,4 @@ public class UserDto {
 
     private Float eventsRating;
 
-    private Long eventsLikes;
-
-    private Long eventsDislikes;
-
 }

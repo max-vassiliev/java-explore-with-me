@@ -1,19 +1,23 @@
 package ru.practicum.ewm.event.mapper;
 
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
 import ru.practicum.ewm.event.dto.update.UpdateEventRequest;
 import ru.practicum.ewm.event.model.Event;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Mapper(
         componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
 )
 public interface EventMapperLite {
+
+    String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Mapping(target = "location", ignore = true)
     @Mapping(target = "category", ignore = true)

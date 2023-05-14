@@ -8,7 +8,6 @@ import ru.practicum.ewm.event.model.QEvent;
 import ru.practicum.ewm.event.model.params.EventAdminSearchParams;
 import ru.practicum.ewm.event.model.params.EventPublicSearchParams;
 import ru.practicum.ewm.event.model.params.EventSearchSort;
-import ru.practicum.ewm.user.model.QUser;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -52,40 +51,33 @@ public class CustomEventRepository {
 
         query.from(event).where(event.state.eq(EventState.PUBLISHED));
 
-        if (params.hasText(params)) {
+        if (params.hasText()) {
             query.where(event.annotation.likeIgnoreCase("%" + params.getText() + "%")
                     .or(event.description.likeIgnoreCase("%" + params.getText() + "%")));
         }
-        if (params.hasCategories(params)) {
+        if (params.hasCategories()) {
             query.where(event.category.id.in(params.getCategories()));
         }
-        if (params.hasPaid(params)) {
+        if (params.hasPaid()) {
             query.where(event.paid.eq(params.getPaid()));
         }
-        if (params.hasRangeStart(params)) {
+        if (params.hasRangeStart()) {
             query.where(event.eventDate.after(params.getRangeStart()));
-        } else if (!params.hasRangeStart(params)) {
+        } else if (!params.hasRangeStart()) {
             query.where(event.eventDate.after(LocalDateTime.now()));
         }
-        if (params.hasRangeEnd(params)) {
+        if (params.hasRangeEnd()) {
             query.where(event.eventDate.before(params.getRangeEnd()));
         }
         if (params.isOnlyAvailable()) {
-            query.where(event.confirmedRequests.lt(event.participantLimit));
+            query.where(event.confirmedRequests.lt(event.participantLimit)
+                    .or(event.participantLimit.eq(0)));
         }
         if (EventSearchSort.EVENT_DATE.equals(params.getSort())) {
             query.orderBy(event.eventDate.asc());
         }
         if (EventSearchSort.VIEWS.equals(params.getSort())) {
             query.orderBy(event.views.desc());
-        }
-        if (EventSearchSort.EVENT_RATING.equals(params.getSort())) {
-            query.orderBy(event.rating.desc().nullsLast());
-        }
-        if (EventSearchSort.INITIATOR_RATING.equals(params.getSort())) {
-            QUser initiator = QUser.user;
-            query.leftJoin(event.initiator, initiator)
-                    .orderBy(initiator.eventsRating.desc().nullsLast());
         }
 
         return query.offset(params.getPage().getOffset()).limit(params.getSize()).fetch();

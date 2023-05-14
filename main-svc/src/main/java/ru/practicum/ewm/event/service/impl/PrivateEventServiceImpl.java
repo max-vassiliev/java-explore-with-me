@@ -43,12 +43,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class PrivateEventServiceImpl implements PrivateEventService {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private static final int MINIMUM_HOURS_BEFORE_EVENT = 2;
 

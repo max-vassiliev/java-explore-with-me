@@ -12,8 +12,6 @@ import ru.practicum.ewm.exception.model.ValidationException;
 import ru.practicum.ewm.rating.dto.RatingDto;
 import ru.practicum.ewm.rating.mapper.RatingMapper;
 import ru.practicum.ewm.rating.model.Rating;
-import ru.practicum.ewm.rating.model.RatingAction;
-import ru.practicum.ewm.rating.model.Reaction;
 import ru.practicum.ewm.rating.repository.RatingRepository;
 import ru.practicum.ewm.request.model.Request;
 import ru.practicum.ewm.request.model.RequestStatus;
@@ -25,12 +23,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class RatingServiceImpl implements RatingService {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private final RatingRepository ratingRepository;
 
@@ -42,15 +40,13 @@ public class RatingServiceImpl implements RatingService {
 
     private final RatingMapper ratingMapper;
 
-
     @Override
     @Transactional
     public RatingDto create(RatingDto dto) {
         User user = getUser(dto.getUserId());
         Event event = getEvent(dto.getEventId());
         validateBeforeSave(user, event);
-        Rating rating = ratingMapper.toRating(dto, user, event);
-        updateRelatedData(event, dto.getReaction(), RatingAction.CREATE);
+        Rating rating = ratingMapper.toRating(dto);
         return ratingMapper.toRatingDto(ratingRepository.save(rating));
     }
 
@@ -64,10 +60,8 @@ public class RatingServiceImpl implements RatingService {
     public RatingDto update(RatingDto dto) {
         Rating rating = getRating(dto.getUserId(), dto.getEventId());
         if (!Objects.equals(dto.getReaction(), rating.getReaction())) {
-            Event event = getEvent(dto.getEventId());
             rating.setReaction(dto.getReaction());
             ratingRepository.flush();
-            updateRelatedData(event, dto.getReaction(), RatingAction.UPDATE);
         }
         return ratingMapper.toRatingDto(rating);
     }
@@ -76,9 +70,7 @@ public class RatingServiceImpl implements RatingService {
     @Transactional
     public void delete(Long userId, Long eventId) {
         Rating rating = getRating(userId, eventId);
-        Event event = getEvent(eventId);
         ratingRepository.delete(rating);
-        updateRelatedData(event, rating.getReaction(), RatingAction.DELETE);
     }
 
     // ---------------------------------------
@@ -86,7 +78,7 @@ public class RatingServiceImpl implements RatingService {
     // ---------------------------------------
 
     private Rating getRating(Long userId, Long eventId) {
-        return ratingRepository.getByUser_IdAndEvent_Id(userId, eventId)
+        return ratingRepository.getByUserIdAndEventId(userId, eventId)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Rating not found for user ID = %d and event ID = %d", userId, eventId),
                         Rating.class,
@@ -119,73 +111,6 @@ public class RatingServiceImpl implements RatingService {
                         Request.class,
                         LocalDateTime.now()
                 ));
-    }
-
-    private void updateRelatedData(Event event, Reaction reaction, RatingAction action) {
-        User initiator = event.getInitiator();
-
-        switch (action) {
-            case UPDATE:
-                updateDataOnUpdate(event, reaction, initiator);
-                break;
-            case DELETE:
-                updateDataOnDelete(event, reaction, initiator);
-                break;
-            default:
-                updateDataOnCreate(event, reaction, initiator);
-                break;
-        }
-
-        event.setRating(countRating(event.getLikes(), event.getDislikes()));
-        initiator.setEventsRating(countRating(initiator.getEventsLikes(), initiator.getEventsDislikes()));
-
-        eventRepository.flush();
-        userRepository.flush();
-    }
-
-    // -------------------------
-    // Вспомогательные методы
-    // -------------------------
-
-    private float countRating(Long likes, Long dislikes) {
-        double likesDouble = likes.doubleValue();
-        double dislikesDouble = dislikes.doubleValue();
-        double rating = likesDouble / (likesDouble + dislikesDouble) * 5;
-        return (float) rating;
-    }
-
-    private void updateDataOnCreate(Event event, Reaction reaction, User initiator) {
-        if (Reaction.LIKE.equals(reaction)) {
-            event.setLikes(event.getLikes() + 1);
-            initiator.setEventsLikes(initiator.getEventsLikes() + 1);
-        }
-        if (Reaction.DISLIKE.equals(reaction)) {
-            event.setDislikes(event.getDislikes() + 1);
-            initiator.setEventsDislikes(initiator.getEventsDislikes() + 1);
-        }
-    }
-
-    private void updateDataOnUpdate(Event event, Reaction reaction, User initiator) {
-        updateDataOnCreate(event, reaction, initiator);
-        if (Reaction.LIKE.equals(reaction)) {
-            event.setDislikes(event.getDislikes() - 1);
-            initiator.setEventsDislikes(initiator.getEventsDislikes() - 1);
-        }
-        if (Reaction.DISLIKE.equals(reaction)) {
-            event.setLikes(event.getLikes() - 1);
-            initiator.setEventsLikes(initiator.getEventsLikes() - 1);
-        }
-    }
-
-    private void updateDataOnDelete(Event event, Reaction reaction, User initiator) {
-        if (Reaction.LIKE.equals(reaction)) {
-            event.setLikes(event.getLikes() - 1);
-            initiator.setEventsLikes(initiator.getEventsLikes() - 1);
-        }
-        if (Reaction.DISLIKE.equals(reaction)) {
-            event.setDislikes(event.getDislikes() - 1);
-            initiator.setEventsDislikes(initiator.getEventsDislikes() - 1);
-        }
     }
 
     // -----------

@@ -12,14 +12,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class EventAdminSearchParams {
 
+    public static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private List<Long> users;
     private List<EventState> states;
     private List<Long> categories;

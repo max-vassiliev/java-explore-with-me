@@ -35,6 +35,13 @@ public class UserController {
 
     private final UserService userService;
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDto create(@Valid @RequestBody NewUserRequest userDto) {
+        log.info("POST /admin/users | userDto: {}", userDto);
+        return userService.create(userDto);
+    }
+
     @GetMapping
     public ResponseEntity<List<UserDto>> getAll(@RequestParam(name = "ids", required = false) List<Long> ids,
                                          @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") int from,
@@ -42,13 +49,6 @@ public class UserController {
         log.info("GET /admin/users?ids={}&from={}&size={}", ids, from, size);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userService.getAll(ids, new CustomPageRequest(from, size, Sort.by("id"))));
-    }
-
-    @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody NewUserRequest userDto) {
-        log.info("POST /admin/users | userDto: {}", userDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(userService.create(userDto));
     }
 
     @DeleteMapping("/{userId}")

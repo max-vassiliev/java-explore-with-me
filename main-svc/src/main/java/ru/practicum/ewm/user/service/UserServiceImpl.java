@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm.exception.model.EntityNotFoundException;
 import org.springframework.data.domain.Pageable;
+import ru.practicum.ewm.rating.model.utils.InitiatorRating;
+import ru.practicum.ewm.rating.repository.EventRatingRepository;
 import ru.practicum.ewm.user.dto.NewUserRequest;
 import ru.practicum.ewm.user.dto.UserDto;
 import ru.practicum.ewm.user.mapper.UserMapper;
@@ -15,6 +17,7 @@ import ru.practicum.ewm.user.repository.UserRepository;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+
+    private final EventRatingRepository eventRatingRepository;
 
     private final UserMapper userMapper;
 
@@ -37,6 +42,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAll(List<Long> ids, Pageable pageable) {
         List<User> foundUsers = getUsers(ids, pageable);
         if (foundUsers.isEmpty()) return Collections.emptyList();
+        fetchRatings(foundUsers);
 
         return foundUsers.stream()
                 .map(userMapper::toUserDto)
@@ -69,5 +75,23 @@ public class UserServiceImpl implements UserService {
         } else {
             return userRepository.findAll(pageable).toList();
         }
+    }
+
+    private void fetchRatings(List<User> users) {
+        List<Long> userIds = users.stream()
+                .map(User::getId)
+                .collect(Collectors.toList());
+
+        List<InitiatorRating> initiatorRatings = eventRatingRepository.getInitiatorRatings(userIds);
+        if (initiatorRatings.isEmpty()) return;
+
+        Map<Long, InitiatorRating> initiatorRatingsMap = initiatorRatings.stream()
+                .collect(Collectors.toMap(InitiatorRating::getInitiatorId, initiatorRating -> initiatorRating));
+
+        users.forEach(user -> {
+            if (initiatorRatingsMap.containsKey(user.getId())) {
+                user.setEventsRating(initiatorRatingsMap.get(user.getId()).getRating());
+            }
+        });
     }
 }

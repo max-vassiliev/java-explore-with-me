@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.practicum.ewm.rating.model.Reaction;
+import ru.practicum.ewm.rating.model.enums.Reaction;
 
 @Getter
 @Setter

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "users", schema = "public")
@@ -32,13 +33,7 @@ public class User {
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(name = "events_rating")
+    @Transient
     private Float eventsRating;
-
-    @Column(name = "events_likes")
-    private Long eventsLikes;
-
-    @Column(name = "events_dislikes")
-    private Long eventsDislikes;
 
 }

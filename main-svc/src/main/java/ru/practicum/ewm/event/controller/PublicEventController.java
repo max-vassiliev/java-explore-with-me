@@ -3,8 +3,6 @@ package ru.practicum.ewm.event.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,16 +29,15 @@ public class PublicEventController {
     private final PublicEventService eventService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<EventFullDto> getById(@PathVariable Long id,
+    public EventFullDto getById(@PathVariable Long id,
                                                 HttpServletRequest request) {
         log.info("GET /events/{} | Client IP: {} | Endpoint Path: {}",
                 id, request.getRemoteAddr(), request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.getById(id, request));
+        return eventService.getById(id, request);
     }
 
     @GetMapping
-    public ResponseEntity<List<EventShortDto>> getAll(@RequestParam(name = "text", required = false) String text,
+    public List<EventShortDto> getAll(@RequestParam(name = "text", required = false) String text,
                     @RequestParam(name = "categories", required = false) List<Long> categories,
                     @RequestParam(name = "paid", required = false) Boolean paid,
                     @RequestParam(name = "rangeStart", required = false) String rangeStart,
@@ -55,7 +52,6 @@ public class PublicEventController {
                 from, size);
         EventPublicSearchParams params = new EventPublicSearchParams(text, categories, paid,
                 rangeStart, rangeEnd, onlyAvailable, sort, from, size);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.getAll(params, request));
+        return eventService.getAll(params, request);
     }
 }

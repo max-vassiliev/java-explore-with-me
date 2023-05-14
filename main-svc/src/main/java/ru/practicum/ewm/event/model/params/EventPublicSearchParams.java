@@ -12,14 +12,16 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-import static ru.practicum.ewm.common.StatsConstants.EARLIEST_DATE;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 public class EventPublicSearchParams {
+
+    public static final LocalDateTime EARLIEST_DATE = LocalDateTime
+            .of(2010, 1, 1, 0, 0, 0);
+
+    public static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private String text;
     private List<Long> categories;
@@ -65,24 +67,35 @@ public class EventPublicSearchParams {
         }
     }
 
-    public boolean hasText(EventPublicSearchParams params) {
-        return params.getText() != null;
+    public boolean hasText() {
+        return this.text != null;
     }
 
-    public boolean hasCategories(EventPublicSearchParams params) {
-        return params.getCategories() != null;
+    public boolean hasCategories() {
+        return this.categories != null;
     }
 
-    public boolean hasPaid(EventPublicSearchParams params) {
-        return params.getPaid() != null;
+    public boolean hasPaid() {
+        return this.paid != null;
     }
 
-    public boolean hasRangeStart(EventPublicSearchParams params) {
-        return params.getRangeStart() != null;
+    public boolean hasRangeStart() {
+        return this.rangeStart != null;
     }
 
-    public boolean hasRangeEnd(EventPublicSearchParams params) {
-        return params.getRangeEnd() != null;
+    public boolean hasRangeEnd() {
+        return this.rangeEnd != null;
+    }
+
+    public boolean isFutureEventSearch() {
+        if (this.rangeStart == null && this.rangeEnd == null) {
+            return false;
+        }
+        LocalDateTime now = LocalDateTime.now();
+        if (this.rangeStart != null && !this.rangeStart.isBefore(now.minusMinutes(1))) {
+            return true;
+        }
+        return this.rangeEnd != null && !this.rangeEnd.isBefore(now.minusMinutes(1));
     }
 
     private boolean isRangeStartAfterRangeEnd() {
