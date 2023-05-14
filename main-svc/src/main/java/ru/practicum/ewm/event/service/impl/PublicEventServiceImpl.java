@@ -185,7 +185,7 @@ public class PublicEventServiceImpl implements PublicEventService {
             List<EventRating> eventRatings = eventRatingRepository.getEventRatings(eventIds);
             Map<Long, EventRating> eventRatingMap = eventRatings.stream()
                     .collect(Collectors.toMap(EventRating::getEventId, eventRating -> eventRating));
-            events.forEach( event -> {
+            events.forEach(event -> {
                 event.getInitiator().setEventsRating(initiatorRatingMap.get(event.getId()).getRating());
                 if (eventRatingMap.containsKey(event.getId())) {
                     event.setLikes(eventRatingMap.get(event.getId()).getLikes());
