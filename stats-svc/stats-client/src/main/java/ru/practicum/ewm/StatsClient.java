@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Service
 @Slf4j
 public class StatsClient {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private final WebClient webClient;
 

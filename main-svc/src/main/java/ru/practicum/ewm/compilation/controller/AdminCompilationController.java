@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -31,18 +30,17 @@ public class AdminCompilationController {
     private final AdminCompilationService compilationService;
 
     @PostMapping
-    public ResponseEntity<CompilationDto> create(@Valid @RequestBody NewCompilationDto dto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public CompilationDto create(@Valid @RequestBody NewCompilationDto dto) {
         log.info("POST /admin/compilations | Request Body: {}", dto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(compilationService.create(dto));
+        return compilationService.create(dto);
     }
 
     @PatchMapping("/{compId}")
-    public ResponseEntity<CompilationDto> update(@PathVariable Long compId,
+    public CompilationDto update(@PathVariable Long compId,
                                                  @RequestBody UpdateCompilationRequest request) {
         log.info("PATCH /admin/compilations/{} | Request Body: {}", compId, request);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(compilationService.update(compId, request));
+        return compilationService.update(compId, request);
     }
 
     @DeleteMapping("/{compId}")

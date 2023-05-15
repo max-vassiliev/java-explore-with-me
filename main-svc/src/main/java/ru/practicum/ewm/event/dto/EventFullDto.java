@@ -9,7 +9,6 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.event.model.EventState;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -48,5 +47,11 @@ public class EventFullDto {
     private Long views;
 
     private Long confirmedRequests;
+
+    private Long likes;
+
+    private Long dislikes;
+
+    private Float rating;
 
 }

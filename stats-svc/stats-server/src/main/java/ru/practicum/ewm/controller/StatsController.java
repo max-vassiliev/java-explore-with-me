@@ -21,14 +21,14 @@ import ru.practicum.ewm.service.StatsService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @RestController
 @RequestMapping
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Slf4j
 @Validated
 public class StatsController {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private final StatsService statsService;
 

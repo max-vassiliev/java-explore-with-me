@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -30,18 +29,17 @@ public class AdminCategoryController {
     private final CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryDto> create(@Valid @RequestBody NewCategoryDto categoryDto) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public CategoryDto create(@Valid @RequestBody NewCategoryDto categoryDto) {
         log.info("POST /admin/categories | Request Body: {}", categoryDto);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(categoryService.create(categoryDto));
+        return categoryService.create(categoryDto);
     }
 
     @PatchMapping("/{catId}")
-    public ResponseEntity<CategoryDto> update(@PathVariable Long catId,
+    public CategoryDto update(@PathVariable Long catId,
                                               @Valid @RequestBody NewCategoryDto categoryDto) {
         log.info("PATCH /admin/categories/{} | categoryDto: {}", catId, categoryDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(categoryService.update(catId, categoryDto));
+        return categoryService.update(catId, categoryDto);
     }
 
     @DeleteMapping("/{catId}")

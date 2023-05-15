@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
 
 @Entity
@@ -77,6 +78,15 @@ public class Event {
 
     @Column(name = "confirmed_requests", nullable = false)
     private Long confirmedRequests = 0L;
+
+    @Transient
+    private Long likes;
+
+    @Transient
+    private Long dislikes;
+
+    @Transient
+    private Float rating;
 
     @Column(name = "views", nullable = false)
     private Long views;

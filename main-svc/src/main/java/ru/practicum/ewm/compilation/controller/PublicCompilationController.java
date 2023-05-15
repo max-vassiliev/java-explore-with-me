@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,18 +28,16 @@ public class PublicCompilationController {
     private final PublicCompilationService compilationService;
 
     @GetMapping("/{compId}")
-    public ResponseEntity<CompilationDto> getById(@PathVariable Long compId) {
+    public CompilationDto getById(@PathVariable Long compId) {
         log.info("GET /compilations/{}", compId);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(compilationService.getById(compId));
+        return compilationService.getById(compId);
     }
 
     @GetMapping
-    public ResponseEntity<List<CompilationDto>> getAll(@RequestParam(name = "pinned", required = false) Boolean pinned,
+    public List<CompilationDto> getAll(@RequestParam(name = "pinned", required = false) Boolean pinned,
                 @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") int from,
                 @Positive @RequestParam(name = "size", defaultValue = "10") int size) {
         log.info("GET /compilations?pinned={}&from={}&size={}", pinned, from, size);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(compilationService.getAll(pinned, new CustomPageRequest(from, size, Sort.by("id"))));
+        return compilationService.getAll(pinned, new CustomPageRequest(from, size, Sort.by("id")));
     }
 }

@@ -27,11 +27,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @RestControllerAdvice
 @Slf4j
 public class ErrorHandler {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)

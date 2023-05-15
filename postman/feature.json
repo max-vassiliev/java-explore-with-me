@@ -1,0 +1,3196 @@
+{
+	"info": {
+		"_postman_id": "eeb55985-d351-458c-9f48-0ca2d64313f0",
+		"name": "Explore With Me - Rating Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24143782"
+	},
+	"item": [
+		{
+			"name": "Validation",
+			"item": [
+				{
+					"name": "Add like twice",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 106;",
+									"const eventId = 101;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/106/events/101/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"106",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike twice",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 108;",
+									"const eventId = 101;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/108/events/101/ratings?like=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"108",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like by initiator",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/101/events/102/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"101",
+								"events",
+								"102",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like to future event",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/109/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"109",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like, event not published",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(404);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/106/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"106",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like, event not found",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(404);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/1010/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"1010",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like, user not found",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 404 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(404);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/1030/events/101/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"1030",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike after like via POST request",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 107;",
+									"const eventId = 101;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/107/events/101/ratings?like=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"107",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like after dislike via POST request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 105;",
+									"const eventId = 101;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/105/events/101/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"105",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like to private event from (invalid participant)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/105/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"105",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like / Dislike",
+			"item": [
+				{
+					"name": "Add like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении лайка ожидается статус LIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"LIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/101/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like to private event from (invalid participant)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении лайка ожидается статус LIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"LIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/104/events/105/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"104",
+								"events",
+								"105",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 201 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(201);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении дизлайка ожидается статус DISLIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"DISLIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/104/events/101/ratings?like=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"104",
+								"events",
+								"101",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change like to dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 103;",
+									"const eventId = 103;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении дизлайка ожидается статус DISLIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"DISLIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/103/events/103/ratings?like=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"103",
+								"events",
+								"103",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Сhange like to like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 106;",
+									"const eventId = 103;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении лайка ожидается статус LIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"LIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/106/events/103/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"106",
+								"events",
+								"103",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change dislike to like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 104;",
+									"const eventId = 103;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении лайка ожидается статус LIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"LIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/104/events/103/ratings?like=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"104",
+								"events",
+								"103",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change dislike to dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 107;",
+									"const eventId = 103;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"const target = pm.response.json();",
+									"const urlParts = pm.request.url.toString().split('/');",
+									"const userId = parseInt(urlParts[urlParts.length - 4]);",
+									"const eventId = parseInt(urlParts[urlParts.length - 2]);",
+									"",
+									"pm.test(\"Ответ должен содержать поля: userId, eventId, reaction\", function () {",
+									"    pm.expect(target).to.have.property('userId');",
+									"    pm.expect(target).to.have.property('eventId');",
+									"    pm.expect(target).to.have.property('reaction');",
+									"});",
+									"",
+									"pm.test(\"ID пользователя в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.userId).to.eql(userId);",
+									"});",
+									"",
+									"pm.test(\"ID события в запросе и в ответе должны совпадать\", function () {",
+									"    pm.expect(target.eventId).to.eql(eventId);",
+									"});",
+									"",
+									"pm.test(\"При добавлении лайка ожидается статус DISLIKE\", function () {",
+									"    pm.expect(target.reaction).equal(\"DISLIKE\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/107/events/103/ratings?like=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"107",
+								"events",
+								"103",
+								"ratings"
+							],
+							"query": [
+								{
+									"key": "like",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 109;",
+									"const eventId = 103;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        pm.collectionVariables.set('response', res.json());",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/109/events/103/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"109",
+								"events",
+								"103",
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 110;",
+									"const eventId = 103;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        pm.collectionVariables.set('response', res.json());",
+									"        console.log(res);",
+									"    }",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 204\", function () {",
+									"    pm.response.to.have.status(204);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/110/events/103/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"110",
+								"events",
+								"103",
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sort By Rating",
+			"item": [
+				{
+					"name": "Get events, sort by event rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"    pm.expect(body).is.an('array');",
+									"});",
+									"",
+									"pm.test(\"События отсортированы по рейтингу; значения null — в конце списка\", function () {",
+									"    for (let i = 0; i < body.length - 1; i++) {",
+									"        let currentRating = body[i].rating;",
+									"        let nextRating = body[i + 1].rating;",
+									"        if (currentRating === null) {",
+									"            pm.expect(nextRating).to.equal(null);",
+									"        } else if (nextRating !== null) {",
+									"            pm.expect(currentRating).to.be.at.least(nextRating);",
+									"        }",
+									"    }",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const userId = 105;",
+									"const eventId = 103;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events?sort=EVENT_RATING",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_RATING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events, sort by initiator rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"    pm.expect(body).is.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events?sort=INITIATOR_RATING",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "INITIATOR_RATING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events, sort by event rating with range end in the future",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events?sort=EVENT_RATING&rangeEnd=2052-09-06%2011:00:23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_RATING"
+								},
+								{
+									"key": "rangeEnd",
+									"value": "2052-09-06%2011:00:23"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events, sort by event rating with range start in the future",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Ответ должен содержать код статуса 409 и данные в формате json\", function () {",
+									"    pm.response.to.have.status(409);    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events?sort=EVENT_RATING&rangeStart=2032-09-06%2011:00:23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "EVENT_RATING"
+								},
+								{
+									"key": "rangeStart",
+									"value": "2032-09-06%2011:00:23"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event Rating Count",
+			"item": [
+				{
+					"name": "Get Event 104 after like by User 103",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 103;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 1;",
+									"const expectedDislikes = 0;",
+									"const expectedRating = 5.0;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должен быть 1 лайк\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 0 дизлайков\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 5.0\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 104",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 104;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 2;",
+									"const expectedDislikes = 0;",
+									"const expectedRating = 5.0;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 0 дизлайков\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 5.0\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 105",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 105;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 3;",
+									"const expectedDislikes = 0;",
+									"const expectedRating = 5.0;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 3 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 0 дизлайков\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 5.0\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after dislike by User 106",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 106;",
+									"const like = false",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 3;",
+									"const expectedDislikes = 1;",
+									"const expectedRating = 3.8;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 3 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть 1 дизлайк\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.8\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after User 105 updated like to dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 105;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'PATCH',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 2;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 2.5;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 2.5\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 107",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 107;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 3;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 3.0;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 3 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.0\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 108",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 108;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 4;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 3.3;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 4 лайка\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.3\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 109",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 109",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 5;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 3.6;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 5 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.6\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after dislike by User 110",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 110;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 5;",
+									"const expectedDislikes = 3;",
+									"const expectedRating = 3.1;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 5 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 3 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.1\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after like by User 101",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 101;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 6;",
+									"const expectedDislikes = 3;",
+									"const expectedRating = 3.3;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 6 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 3 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.3\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after User 110 deletes dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 110;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings`,",
+									"    method: 'DELETE',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 6;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 3.8;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 6 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.8\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after User 101 deletes like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 101;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings`,",
+									"    method: 'DELETE',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 5;",
+									"const expectedDislikes = 2;",
+									"const expectedRating = 3.6;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 5 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 2 дизлайка\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 3.6\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Event 104 after User 106 updates dislike to like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 104;",
+									"const userId = 106;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'PATCH',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedLikes = 6;",
+									"const expectedDislikes = 1;",
+									"const expectedRating = 4.3;",
+									"const body = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", () => {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У события должно быть 6 лайков\", function () {",
+									"    pm.expect(body.likes).to.eql(expectedLikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть 1 дизлайк\", function () {",
+									"    pm.expect(body.dislikes).to.eql(expectedDislikes);",
+									"});",
+									"",
+									"pm.test(\"У события должен быть рейтинг 4.3\", function () {",
+									"    pm.expect(body.rating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/events/104",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"events",
+								"104"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Initiator Rating Count",
+			"item": [
+				{
+					"name": "Get User 103 after like to Event 110 from User 102",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 110;",
+									"const userId = 102;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 5.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 5.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after like to Event 111 from User 102",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 111;",
+									"const userId = 102;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 5.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 5.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after like to Event 110 from User 104",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 110;",
+									"const userId = 104;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 5.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 5.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after dislike to Event 111 from User 104",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 111;",
+									"const userId = 104;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 3.8;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 3.8\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after dislike to Event 110 from User 105",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 110;",
+									"const userId = 105;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 3.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 3.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after User 105 updated reaction to Event 110 from dislike to like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 110;",
+									"const userId = 105;",
+									"const like = true;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'PATCH',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 4.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 4.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after User 102 updated reaction to Event 111 from like to dislike",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 111;",
+									"const userId = 102;",
+									"const like = false;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings?like=${like}`,",
+									"    method: 'PATCH',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 3.0;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 3.0\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after User 105 deleted like to Event 110",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 110;",
+									"const userId = 105;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings`,",
+									"    method: 'DELETE',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 2.5;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 2.5\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User 103 after User 102 deleted dislike to Event 111",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const eventId = 111;",
+									"const userId = 102;",
+									"",
+									"pm.sendRequest({",
+									"    url: `http://localhost:8080/users/${userId}/events/${eventId}/ratings`,",
+									"    method: 'DELETE',",
+									"    header: {",
+									"        'Content-Type': 'application/json'",
+									"    }",
+									"}, (err, res) => {",
+									"    if (err) {",
+									"        console.error(err);",
+									"    } else {",
+									"        console.log(res);",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const expectedRating = 3.3;",
+									"const target = pm.response.json();",
+									"",
+									"pm.test(\"Ответ должен содержать код статуса 200 и данные в формате json\", function () {",
+									"    pm.response.to.be.ok;    ",
+									"    pm.response.to.be.withBody;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"У событий пользователя должен быть общий рейтинг 3.3\", function () {",
+									"    pm.expect(target[0].eventsRating).to.eql(expectedRating);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/admin/users?ids=103",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"users"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "response",
+			"value": ""
+		}
+	]
+}

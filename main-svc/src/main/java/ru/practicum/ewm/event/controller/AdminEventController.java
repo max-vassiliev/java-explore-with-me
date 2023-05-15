@@ -3,8 +3,6 @@ package ru.practicum.ewm.event.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,7 +32,7 @@ public class AdminEventController {
     private final AdminEventService eventService;
 
     @GetMapping
-    public ResponseEntity<List<EventFullDto>> getAll(@RequestParam(name = "users", required = false) List<Long> users,
+    public List<EventFullDto> getAll(@RequestParam(name = "users", required = false) List<Long> users,
                     @RequestParam(name = "states", required = false) List<EventState> states,
                     @RequestParam(name = "categories", required = false) List<Long> categories,
                     @RequestParam(name = "rangeStart", required = false) String rangeStart,
@@ -45,15 +43,13 @@ public class AdminEventController {
                 "&from={}&size={}", users, states, categories, rangeStart, rangeEnd, from, size);
         EventAdminSearchParams params = new EventAdminSearchParams(users, states, categories,
                 rangeStart, rangeEnd, from, size);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.getAll(params));
+        return eventService.getAll(params);
     }
 
     @PatchMapping("/{eventId}")
-    public ResponseEntity<EventFullDto> update(@PathVariable Long eventId,
+    public EventFullDto update(@PathVariable Long eventId,
                                                @Valid @RequestBody UpdateEventAdminRequest updateDto) {
         log.info("PATCH /admin/events/{} | Request Body: {}", eventId, updateDto);
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(eventService.update(eventId, updateDto));
+        return eventService.update(eventId, updateDto);
     }
 }

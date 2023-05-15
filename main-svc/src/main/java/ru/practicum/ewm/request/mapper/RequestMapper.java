@@ -5,10 +5,10 @@ import org.mapstruct.Mapping;
 import ru.practicum.ewm.request.dto.ParticipationRequestDto;
 import ru.practicum.ewm.request.model.Request;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Mapper(componentModel = "spring")
 public interface RequestMapper {
+
+    String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @Mapping(target = "event", source = "event.id")
     @Mapping(target = "requester", source = "requester.id")

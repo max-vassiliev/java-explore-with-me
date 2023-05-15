@@ -18,11 +18,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static ru.practicum.ewm.common.StatsConstants.EWM_DATE_TIME_FORMAT;
-
 @Component
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class EventServiceUtils {
+
+    private static final String EWM_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     private static final int MINIMUM_HOURS_BEFORE_EVENT_ADMIN = 1;
 
